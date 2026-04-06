@@ -10,6 +10,8 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
   atualizar:
@@ -36,13 +38,42 @@ jobs:
           playwright install-deps chromium
 
       - name: Rodar atualização
-        run: python atualizar.py monitor_meta_ads.xlsx
+        run: python atualizar.py
 
-      - name: Salvar planilha atualizada no repositório
+      - name: Salvar dados no repositório
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add monitor_meta_ads.xlsx
+          git add dados.json
           git diff --cached --quiet || git commit -m "Atualização automática $(date +'%d/%m/%Y %H:%M')"
           git pull origin main --rebase
           git push origin main
+
+  deploy:
+    needs: atualizar
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Pegar dados atualizados
+        run: git pull origin main
+
+      - name: Configurar Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload do site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "."
+
+      - name: Deploy no GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

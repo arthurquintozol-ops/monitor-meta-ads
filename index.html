@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitor de Anúncios Meta</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #0f1117;
+            color: #e1e4e8;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1a1f2e 0%, #0f1117 100%);
+            border-bottom: 1px solid #21262d;
+            padding: 24px 32px;
+        }
+
+        .header h1 {
+            font-size: 22px;
+            font-weight: 600;
+            color: #f0f3f6;
+            margin-bottom: 6px;
+        }
+
+        .header .subtitle {
+            font-size: 13px;
+            color: #8b949e;
+        }
+
+        .stats-bar {
+            display: flex;
+            gap: 16px;
+            padding: 20px 32px;
+            border-bottom: 1px solid #21262d;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            background: #161b22;
+            border: 1px solid #21262d;
+            border-radius: 8px;
+            padding: 16px 20px;
+            min-width: 160px;
+            flex: 1;
+        }
+
+        .stat-card .label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #8b949e;
+            margin-bottom: 6px;
+        }
+
+        .stat-card .value {
+            font-size: 26px;
+            font-weight: 700;
+            color: #f0f3f6;
+        }
+
+        .stat-card .value.green { color: #3fb950; }
+        .stat-card .value.red { color: #f85149; }
+        .stat-card .value.yellow { color: #d29922; }
+
+        .container {
+            padding: 24px 32px;
+        }
+
+        .table-wrapper {
+            background: #161b22;
+            border: 1px solid #21262d;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .table-scroll {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        thead th {
+            background: #1c2028;
+            color: #8b949e;
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid #21262d;
+            white-space: nowrap;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+
+        thead th:first-child {
+            position: sticky;
+            left: 0;
+            z-index: 2;
+            background: #1c2028;
+        }
+
+        tbody td {
+            padding: 11px 16px;
+            border-bottom: 1px solid #21262d;
+            white-space: nowrap;
+        }
+
+        tbody td:first-child {
+            position: sticky;
+            left: 0;
+            background: #161b22;
+            z-index: 1;
+            font-weight: 500;
+            color: #f0f3f6;
+            max-width: 280px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        tbody tr:hover td {
+            background: #1c2028;
+        }
+
+        tbody tr:hover td:first-child {
+            background: #1c2028;
+        }
+
+        .cell-up {
+            color: #3fb950;
+            background: rgba(63, 185, 80, 0.08);
+            font-weight: 600;
+        }
+
+        .cell-down {
+            color: #f85149;
+            background: rgba(248, 81, 73, 0.08);
+            font-weight: 600;
+        }
+
+        .cell-same {
+            color: #d29922;
+            background: rgba(210, 153, 34, 0.08);
+        }
+
+        .cell-neutral {
+            color: #8b949e;
+        }
+
+        .trend-icon {
+            font-size: 11px;
+            margin-right: 4px;
+        }
+
+        .link-cell a {
+            color: #58a6ff;
+            text-decoration: none;
+            font-size: 12px;
+        }
+
+        .link-cell a:hover {
+            text-decoration: underline;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: #8b949e;
+        }
+
+        .empty-state h2 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #e1e4e8;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            color: #8b949e;
+        }
+
+        .loading .spinner {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            border: 3px solid #21262d;
+            border-top-color: #58a6ff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-bottom: 16px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .header, .stats-bar, .container { padding-left: 16px; padding-right: 16px; }
+            .stats-bar { gap: 8px; }
+            .stat-card { min-width: 120px; padding: 12px 14px; }
+            .stat-card .value { font-size: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Monitor de Anúncios Meta</h1>
+        <div class="subtitle" id="ultima-atualizacao">Carregando...</div>
+    </div>
+
+    <div class="stats-bar" id="stats-bar" style="display:none;">
+        <div class="stat-card">
+            <div class="label">Páginas monitoradas</div>
+            <div class="value" id="stat-total">0</div>
+        </div>
+        <div class="stat-card">
+            <div class="label">Subiram</div>
+            <div class="value green" id="stat-subiram">0</div>
+        </div>
+        <div class="stat-card">
+            <div class="label">Caíram</div>
+            <div class="value red" id="stat-cairam">0</div>
+        </div>
+        <div class="stat-card">
+            <div class="label">Estáveis</div>
+            <div class="value yellow" id="stat-iguais">0</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="conteudo">
+            <div class="loading">
+                <div class="spinner"></div>
+                <div>Carregando dados...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function carregarDados() {
+            try {
+                const resp = await fetch('dados.json?t=' + Date.now());
+                if (!resp.ok) throw new Error('Arquivo não encontrado');
+                return await resp.json();
+            } catch (e) {
+                return null;
+            }
+        }
+
+        function formatarNumero(n) {
+            return n.toLocaleString('pt-BR');
+        }
+
+        function renderizar(dados) {
+            const conteudo = document.getElementById('conteudo');
+            const statsBar = document.getElementById('stats-bar');
+
+            if (!dados || !dados.paginas || Object.keys(dados.paginas).length === 0) {
+                conteudo.innerHTML = `
+                    <div class="empty-state">
+                        <h2>Nenhum dado ainda</h2>
+                        <p>O monitoramento ainda não foi executado ou não há links cadastrados.</p>
+                    </div>`;
+                return;
+            }
+
+            // Atualização
+            document.getElementById('ultima-atualizacao').textContent =
+                dados.ultima_atualizacao
+                    ? 'Última atualização: ' + dados.ultima_atualizacao
+                    : 'Sem data de atualização';
+
+            // Datas ordenadas (mais recente primeiro nas colunas)
+            const datas = (dados.datas || []).slice().reverse();
+            const paginas = Object.values(dados.paginas);
+
+            // Estatísticas
+            let subiram = 0, cairam = 0, iguais = 0;
+            if (datas.length >= 2) {
+                const hoje = datas[0];
+                const ontem = datas[1];
+                for (const pg of paginas) {
+                    const h = pg.historico || {};
+                    const vHoje = h[hoje];
+                    const vOntem = h[ontem];
+                    if (vHoje != null && vOntem != null) {
+                        if (vHoje > vOntem) subiram++;
+                        else if (vHoje < vOntem) cairam++;
+                        else iguais++;
+                    }
+                }
+            }
+
+            document.getElementById('stat-total').textContent = paginas.length;
+            document.getElementById('stat-subiram').textContent = subiram;
+            document.getElementById('stat-cairam').textContent = cairam;
+            document.getElementById('stat-iguais').textContent = iguais;
+            statsBar.style.display = 'flex';
+
+            // Ordenar páginas por total mais recente (decrescente)
+            const dataRecente = datas[0];
+            paginas.sort((a, b) => {
+                const va = (a.historico || {})[dataRecente] || 0;
+                const vb = (b.historico || {})[dataRecente] || 0;
+                return vb - va;
+            });
+
+            // Tabela
+            let html = '<div class="table-wrapper"><div class="table-scroll"><table>';
+
+            // Cabeçalho
+            html += '<thead><tr>';
+            html += '<th>Página</th>';
+            for (const d of datas) {
+                html += `<th>${d}</th>`;
+            }
+            html += '<th>Link</th>';
+            html += '</tr></thead>';
+
+            // Corpo
+            html += '<tbody>';
+            for (const pg of paginas) {
+                html += '<tr>';
+                html += `<td title="${pg.nome}">${pg.nome}</td>`;
+
+                for (let i = 0; i < datas.length; i++) {
+                    const d = datas[i];
+                    const valor = (pg.historico || {})[d];
+                    const valorAnterior = i + 1 < datas.length ? (pg.historico || {})[datas[i + 1]] : null;
+
+                    if (valor == null) {
+                        html += '<td class="cell-neutral">—</td>';
+                    } else if (valorAnterior == null) {
+                        html += `<td class="cell-neutral">${formatarNumero(valor)}</td>`;
+                    } else if (valor > valorAnterior) {
+                        const diff = valor - valorAnterior;
+                        html += `<td class="cell-up" title="+${formatarNumero(diff)} vs anterior"><span class="trend-icon">▲</span>${formatarNumero(valor)}</td>`;
+                    } else if (valor < valorAnterior) {
+                        const diff = valorAnterior - valor;
+                        html += `<td class="cell-down" title="-${formatarNumero(diff)} vs anterior"><span class="trend-icon">▼</span>${formatarNumero(valor)}</td>`;
+                    } else {
+                        html += `<td class="cell-same"><span class="trend-icon">●</span>${formatarNumero(valor)}</td>`;
+                    }
+                }
+
+                const linkCurto = pg.page_id ? `page_id=${pg.page_id}` : 'Ver';
+                html += `<td class="link-cell"><a href="${pg.url}" target="_blank" rel="noopener">${linkCurto}</a></td>`;
+                html += '</tr>';
+            }
+            html += '</tbody></table></div></div>';
+
+            conteudo.innerHTML = html;
+        }
+
+        carregarDados().then(renderizar);
+    </script>
+</body>
+</html>
