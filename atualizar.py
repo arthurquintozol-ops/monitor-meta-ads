@@ -93,19 +93,36 @@ def extrair_page_id_da_url(url: str) -> str:
 
 
 def ler_links() -> list[str]:
-    arquivo = Path(ARQUIVO_LINKS)
-    if not arquivo.exists():
-        print(f"ERRO: Arquivo '{ARQUIVO_LINKS}' não encontrado.")
-        print("Crie o arquivo com um link por linha.")
-        sys.exit(1)
-
+    """Lê links do links.txt e também do dados.json (adicionados pelo painel web)."""
     links = []
     vistos = set()
-    for linha in arquivo.read_text(encoding="utf-8").splitlines():
-        url = linha.strip()
-        if url and "facebook.com/ads/library" in url and url not in vistos:
-            vistos.add(url)
-            links.append(url)
+
+    # 1. Ler do links.txt
+    arquivo = Path(ARQUIVO_LINKS)
+    if arquivo.exists():
+        for linha in arquivo.read_text(encoding="utf-8").splitlines():
+            url = linha.strip()
+            if url and "facebook.com/ads/library" in url and url not in vistos:
+                vistos.add(url)
+                links.append(url)
+
+    # 2. Ler do dados.json (links adicionados pelo painel web)
+    dados_arquivo = Path(ARQUIVO_DADOS)
+    if dados_arquivo.exists():
+        try:
+            dados = json.loads(dados_arquivo.read_text(encoding="utf-8"))
+            for pg in dados.get("paginas", {}).values():
+                url = (pg.get("url") or "").strip()
+                if url and "facebook.com/ads/library" in url and url not in vistos:
+                    vistos.add(url)
+                    links.append(url)
+        except Exception:
+            pass
+
+    if not links:
+        print("ERRO: Nenhum link encontrado em links.txt ou dados.json.")
+        print("Adicione links pelo painel web ou crie o arquivo links.txt.")
+        sys.exit(1)
 
     return links
 

@@ -14,28 +14,110 @@
             min-height: 100vh;
         }
 
+        /* ── Header ── */
         .header {
             background: linear-gradient(135deg, #1a1f2e 0%, #0f1117 100%);
             border-bottom: 1px solid #21262d;
-            padding: 24px 32px;
+            padding: 18px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
         }
 
-        .header h1 {
-            font-size: 22px;
+        .header-left h1 {
+            font-size: 20px;
             font-weight: 600;
             color: #f0f3f6;
-            margin-bottom: 6px;
         }
 
-        .header .subtitle {
-            font-size: 13px;
+        .header-left .subtitle {
+            font-size: 12px;
             color: #8b949e;
+            margin-top: 2px;
         }
 
+        .header-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        /* ── Tabs ── */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #21262d;
+            padding: 0 28px;
+            background: #161b22;
+        }
+
+        .tab {
+            padding: 12px 20px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #8b949e;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .tab:hover { color: #e1e4e8; }
+
+        .tab.active {
+            color: #58a6ff;
+            border-bottom-color: #58a6ff;
+        }
+
+        /* ── Buttons ── */
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            border: 1px solid #30363d;
+            background: #21262d;
+            color: #e1e4e8;
+            cursor: pointer;
+            transition: all 0.15s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn:hover { background: #30363d; border-color: #484f58; }
+
+        .btn-primary {
+            background: #238636;
+            border-color: #2ea043;
+            color: #fff;
+        }
+
+        .btn-primary:hover { background: #2ea043; }
+
+        .btn-danger {
+            background: transparent;
+            border-color: #f8514933;
+            color: #f85149;
+        }
+
+        .btn-danger:hover { background: #f8514915; }
+
+        .btn-sm {
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* ── Stats Bar ── */
         .stats-bar {
             display: flex;
-            gap: 16px;
-            padding: 20px 32px;
+            gap: 14px;
+            padding: 18px 28px;
             border-bottom: 1px solid #21262d;
             flex-wrap: wrap;
         }
@@ -44,21 +126,21 @@
             background: #161b22;
             border: 1px solid #21262d;
             border-radius: 8px;
-            padding: 16px 20px;
-            min-width: 160px;
+            padding: 14px 18px;
+            min-width: 140px;
             flex: 1;
         }
 
         .stat-card .label {
-            font-size: 11px;
+            font-size: 10px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             color: #8b949e;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
 
         .stat-card .value {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 700;
             color: #f0f3f6;
         }
@@ -66,11 +148,15 @@
         .stat-card .value.green { color: #3fb950; }
         .stat-card .value.red { color: #f85149; }
         .stat-card .value.yellow { color: #d29922; }
+        .stat-card .value.blue { color: #58a6ff; }
 
-        .container {
-            padding: 24px 32px;
-        }
+        /* ── Container ── */
+        .container { padding: 20px 28px; }
 
+        .page-section { display: none; }
+        .page-section.active { display: block; }
+
+        /* ── Table ── */
         .table-wrapper {
             background: #161b22;
             border: 1px solid #21262d;
@@ -78,9 +164,7 @@
             overflow: hidden;
         }
 
-        .table-scroll {
-            overflow-x: auto;
-        }
+        .table-scroll { overflow-x: auto; }
 
         table {
             width: 100%;
@@ -95,7 +179,7 @@
             font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            padding: 12px 16px;
+            padding: 10px 14px;
             text-align: left;
             border-bottom: 1px solid #21262d;
             white-space: nowrap;
@@ -112,7 +196,7 @@
         }
 
         tbody td {
-            padding: 11px 16px;
+            padding: 10px 14px;
             border-bottom: 1px solid #21262d;
             white-space: nowrap;
         }
@@ -124,106 +208,392 @@
             z-index: 1;
             font-weight: 500;
             color: #f0f3f6;
-            max-width: 280px;
+            max-width: 260px;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
-        tbody tr:hover td {
-            background: #1c2028;
-        }
-
-        tbody tr:hover td:first-child {
-            background: #1c2028;
-        }
+        tbody tr { cursor: pointer; }
+        tbody tr:hover td { background: #1c2028; }
+        tbody tr:hover td:first-child { background: #1c2028; }
 
         .cell-up {
             color: #3fb950;
-            background: rgba(63, 185, 80, 0.08);
+            background: rgba(63, 185, 80, 0.07);
             font-weight: 600;
         }
 
         .cell-down {
             color: #f85149;
-            background: rgba(248, 81, 73, 0.08);
+            background: rgba(248, 81, 73, 0.07);
             font-weight: 600;
         }
 
         .cell-same {
             color: #d29922;
-            background: rgba(210, 153, 34, 0.08);
+            background: rgba(210, 153, 34, 0.07);
         }
 
-        .cell-neutral {
-            color: #8b949e;
-        }
+        .cell-neutral { color: #8b949e; }
 
         .trend-icon {
-            font-size: 11px;
-            margin-right: 4px;
+            font-size: 10px;
+            margin-right: 3px;
         }
 
-        .link-cell a {
+        /* ── Modal ── */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 700px;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            padding: 18px 22px;
+            border-bottom: 1px solid #21262d;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            font-size: 16px;
+            color: #f0f3f6;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: #8b949e;
+            font-size: 22px;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .modal-close:hover { background: #21262d; color: #f0f3f6; }
+
+        .modal-body {
+            padding: 20px 22px;
+        }
+
+        .modal-info {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .modal-info-row {
+            display: flex;
+            gap: 8px;
+            font-size: 13px;
+        }
+
+        .modal-info-row .info-label {
+            color: #8b949e;
+            min-width: 100px;
+        }
+
+        .modal-info-row .info-value {
+            color: #e1e4e8;
+            word-break: break-all;
+        }
+
+        .modal-info-row a {
             color: #58a6ff;
             text-decoration: none;
+        }
+
+        .modal-info-row a:hover { text-decoration: underline; }
+
+        /* History bars in modal */
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .history-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            background: #0f1117;
+            font-size: 13px;
+        }
+
+        .history-date {
+            color: #8b949e;
+            min-width: 90px;
             font-size: 12px;
         }
 
-        .link-cell a:hover {
-            text-decoration: underline;
+        .history-bar-wrap {
+            flex: 1;
+            height: 22px;
+            background: #21262d;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
         }
 
-        .empty-state {
-            text-align: center;
-            padding: 80px 20px;
-            color: #8b949e;
+        .history-bar {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.4s ease;
         }
 
-        .empty-state h2 {
-            font-size: 18px;
-            margin-bottom: 8px;
+        .history-bar.up { background: #238636; }
+        .history-bar.down { background: #da3633; }
+        .history-bar.same { background: #9e6a03; }
+        .history-bar.neutral { background: #30363d; }
+
+        .history-value {
+            min-width: 70px;
+            text-align: right;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .history-diff {
+            min-width: 80px;
+            text-align: right;
+            font-size: 12px;
+        }
+
+        .diff-up { color: #3fb950; }
+        .diff-down { color: #f85149; }
+        .diff-same { color: #d29922; }
+
+        /* ── Links Management ── */
+        .links-section {
+            max-width: 800px;
+        }
+
+        .add-link-form {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .add-link-form input {
+            flex: 1;
+            padding: 10px 14px;
+            border-radius: 6px;
+            border: 1px solid #30363d;
+            background: #0d1117;
             color: #e1e4e8;
+            font-size: 13px;
+            font-family: 'Consolas', monospace;
         }
 
-        .loading {
+        .add-link-form input::placeholder { color: #484f58; }
+        .add-link-form input:focus { outline: none; border-color: #58a6ff; }
+
+        .link-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: #161b22;
+            border: 1px solid #21262d;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        .link-item-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .link-item-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: #f0f3f6;
+            margin-bottom: 2px;
+        }
+
+        .link-item-url {
+            font-size: 11px;
+            color: #8b949e;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .link-item-id {
+            font-size: 11px;
+            color: #58a6ff;
+            background: #58a6ff15;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        /* ── Config Section ── */
+        .config-section {
+            max-width: 600px;
+        }
+
+        .config-group {
+            background: #161b22;
+            border: 1px solid #21262d;
+            border-radius: 8px;
+            padding: 18px 20px;
+            margin-bottom: 16px;
+        }
+
+        .config-group h3 {
+            font-size: 14px;
+            margin-bottom: 6px;
+            color: #f0f3f6;
+        }
+
+        .config-group p {
+            font-size: 12px;
+            color: #8b949e;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .config-group input {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 6px;
+            border: 1px solid #30363d;
+            background: #0d1117;
+            color: #e1e4e8;
+            font-size: 13px;
+            font-family: monospace;
+            margin-bottom: 10px;
+        }
+
+        .config-group input:focus { outline: none; border-color: #58a6ff; }
+
+        .config-status {
+            font-size: 12px;
+            padding: 6px 10px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .config-status.ok {
+            background: #23863615;
+            color: #3fb950;
+        }
+
+        .config-status.missing {
+            background: #f8514915;
+            color: #f85149;
+        }
+
+        /* ── Empty / Loading ── */
+        .empty-state {
             text-align: center;
             padding: 60px 20px;
             color: #8b949e;
         }
 
-        .loading .spinner {
+        .empty-state h2 {
+            font-size: 17px;
+            margin-bottom: 6px;
+            color: #e1e4e8;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 50px 20px;
+            color: #8b949e;
+        }
+
+        .spinner {
             display: inline-block;
-            width: 32px;
-            height: 32px;
+            width: 28px;
+            height: 28px;
             border: 3px solid #21262d;
             border-top-color: #58a6ff;
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 13px;
+            z-index: 200;
+            animation: fadeIn 0.2s;
+            max-width: 360px;
         }
+
+        .toast.success { background: #238636; color: #fff; }
+        .toast.error { background: #da3633; color: #fff; }
+        .toast.info { background: #1f6feb; color: #fff; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         @media (max-width: 768px) {
-            .header, .stats-bar, .container { padding-left: 16px; padding-right: 16px; }
+            .header, .stats-bar, .container, .tabs { padding-left: 14px; padding-right: 14px; }
             .stats-bar { gap: 8px; }
-            .stat-card { min-width: 120px; padding: 12px 14px; }
+            .stat-card { min-width: 110px; padding: 10px 12px; }
             .stat-card .value { font-size: 20px; }
+            .tab { padding: 10px 14px; font-size: 12px; }
+            .add-link-form { flex-direction: column; }
         }
     </style>
 </head>
 <body>
+
+    <!-- Header -->
     <div class="header">
-        <h1>Monitor de Anúncios Meta</h1>
-        <div class="subtitle" id="ultima-atualizacao">Carregando...</div>
+        <div class="header-left">
+            <h1>Monitor de Anúncios Meta</h1>
+            <div class="subtitle" id="ultima-atualizacao">Carregando...</div>
+        </div>
+        <div class="header-actions">
+            <button class="btn btn-primary" id="btn-atualizar-agora" onclick="dispararAtualizacao()" disabled>
+                Atualizar agora
+            </button>
+        </div>
     </div>
 
+    <!-- Tabs -->
+    <div class="tabs">
+        <div class="tab active" data-tab="dashboard">Dashboard</div>
+        <div class="tab" data-tab="links">Links</div>
+        <div class="tab" data-tab="config">Configurar</div>
+    </div>
+
+    <!-- Stats Bar -->
     <div class="stats-bar" id="stats-bar" style="display:none;">
         <div class="stat-card">
-            <div class="label">Páginas monitoradas</div>
-            <div class="value" id="stat-total">0</div>
+            <div class="label">Monitorando</div>
+            <div class="value blue" id="stat-total">0</div>
         </div>
         <div class="stat-card">
             <div class="label">Subiram</div>
@@ -239,65 +609,202 @@
         </div>
     </div>
 
+    <!-- Page: Dashboard -->
     <div class="container">
-        <div id="conteudo">
+        <div class="page-section active" id="page-dashboard">
             <div class="loading">
                 <div class="spinner"></div>
                 <div>Carregando dados...</div>
             </div>
         </div>
+
+        <!-- Page: Links -->
+        <div class="page-section" id="page-links">
+            <div class="links-section">
+                <h2 style="font-size:16px; margin-bottom:16px; color:#f0f3f6;">Gerenciar Links Monitorados</h2>
+
+                <div class="add-link-form">
+                    <input type="text" id="novo-link" placeholder="Cole aqui um link da Biblioteca de Anúncios da Meta...">
+                    <button class="btn btn-primary" onclick="adicionarLink()">Adicionar</button>
+                </div>
+
+                <div id="lista-links">
+                    <div class="empty-state">
+                        <p>Nenhum link cadastrado ainda.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page: Config -->
+        <div class="page-section" id="page-config">
+            <div class="config-section">
+                <h2 style="font-size:16px; margin-bottom:16px; color:#f0f3f6;">Configurar Acesso</h2>
+
+                <div class="config-group">
+                    <h3>Repositório GitHub</h3>
+                    <p>Formato: <code style="color:#58a6ff">usuario/nome-do-repo</code></p>
+                    <input type="text" id="config-repo" placeholder="arthurquintozol-ops/monitor-meta-ads" value="">
+                    <button class="btn btn-sm" onclick="salvarConfig()">Salvar</button>
+                </div>
+
+                <div class="config-group">
+                    <h3>Token de Acesso (GitHub PAT)</h3>
+                    <p>
+                        Necessário para adicionar/remover links e disparar atualizações pelo painel.<br>
+                        Crie um em: <a href="https://github.com/settings/tokens?type=beta" target="_blank" style="color:#58a6ff">github.com/settings/tokens</a><br>
+                        Permissões necessárias: <strong>Contents</strong> (Read and Write) e <strong>Actions</strong> (Read and Write).
+                    </p>
+                    <input type="password" id="config-token" placeholder="github_pat_xxxxxxxxxxxx">
+                    <button class="btn btn-sm" onclick="salvarConfig()">Salvar</button>
+                </div>
+
+                <div id="config-feedback"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Detalhe da Página -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modal-titulo">Detalhes</h2>
+                <button class="modal-close" onclick="fecharModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-body"></div>
+        </div>
     </div>
 
     <script>
+        // ── Estado Global ──
+        let DADOS = null;
+        let CONFIG = {
+            repo: localStorage.getItem('monitor_repo') || '',
+            token: localStorage.getItem('monitor_token') || ''
+        };
+
+        // ── Inicialização ──
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('config-repo').value = CONFIG.repo;
+            document.getElementById('config-token').value = CONFIG.token;
+            atualizarStatusConfig();
+
+            // Tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
+                    tab.classList.add('active');
+                    document.getElementById('page-' + tab.dataset.tab).classList.add('active');
+                });
+            });
+
+            // Fechar modal clicando fora
+            document.getElementById('modal-overlay').addEventListener('click', (e) => {
+                if (e.target === e.currentTarget) fecharModal();
+            });
+
+            carregarDados();
+        });
+
+        // ── Config ──
+        function salvarConfig() {
+            CONFIG.repo = document.getElementById('config-repo').value.trim();
+            CONFIG.token = document.getElementById('config-token').value.trim();
+            localStorage.setItem('monitor_repo', CONFIG.repo);
+            localStorage.setItem('monitor_token', CONFIG.token);
+            atualizarStatusConfig();
+            toast('Configuração salva!', 'success');
+        }
+
+        function atualizarStatusConfig() {
+            const fb = document.getElementById('config-feedback');
+            const btnAtualizar = document.getElementById('btn-atualizar-agora');
+
+            if (CONFIG.repo && CONFIG.token) {
+                fb.innerHTML = '<div class="config-status ok">Configurado</div>';
+                btnAtualizar.disabled = false;
+            } else {
+                fb.innerHTML = '<div class="config-status missing">Preencha o repositório e token para gerenciar links e disparar atualizações</div>';
+                btnAtualizar.disabled = true;
+            }
+        }
+
+        // ── GitHub API ──
+        async function githubGet(path) {
+            const resp = await fetch(`https://api.github.com/repos/${CONFIG.repo}/contents/${path}`, {
+                headers: CONFIG.token ? { 'Authorization': `Bearer ${CONFIG.token}` } : {}
+            });
+            if (!resp.ok) throw new Error(`GitHub API erro: ${resp.status}`);
+            return await resp.json();
+        }
+
+        async function githubPut(path, content, sha, message) {
+            const body = {
+                message: message,
+                content: btoa(unescape(encodeURIComponent(content))),
+            };
+            if (sha) body.sha = sha;
+
+            const resp = await fetch(`https://api.github.com/repos/${CONFIG.repo}/contents/${path}`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${CONFIG.token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            });
+            if (!resp.ok) {
+                const err = await resp.json();
+                throw new Error(err.message || `Erro ${resp.status}`);
+            }
+            return await resp.json();
+        }
+
+        // ── Carregar Dados ──
         async function carregarDados() {
             try {
                 const resp = await fetch('dados.json?t=' + Date.now());
-                if (!resp.ok) throw new Error('Arquivo não encontrado');
-                return await resp.json();
+                if (!resp.ok) throw new Error('Não encontrado');
+                DADOS = await resp.json();
             } catch (e) {
-                return null;
+                DADOS = { paginas: {}, datas: [], ultima_atualizacao: '' };
             }
+            renderizarDashboard();
+            renderizarLinks();
         }
 
-        function formatarNumero(n) {
-            return n.toLocaleString('pt-BR');
-        }
-
-        function renderizar(dados) {
-            const conteudo = document.getElementById('conteudo');
+        // ── Dashboard ──
+        function renderizarDashboard() {
+            const el = document.getElementById('page-dashboard');
             const statsBar = document.getElementById('stats-bar');
 
-            if (!dados || !dados.paginas || Object.keys(dados.paginas).length === 0) {
-                conteudo.innerHTML = `
+            if (!DADOS || !DADOS.paginas || Object.keys(DADOS.paginas).length === 0) {
+                el.innerHTML = `
                     <div class="empty-state">
                         <h2>Nenhum dado ainda</h2>
-                        <p>O monitoramento ainda não foi executado ou não há links cadastrados.</p>
+                        <p>Adicione links na aba "Links" e rode a primeira atualização.</p>
                     </div>`;
+                statsBar.style.display = 'none';
+                document.getElementById('ultima-atualizacao').textContent = 'Sem dados';
                 return;
             }
 
-            // Atualização
             document.getElementById('ultima-atualizacao').textContent =
-                dados.ultima_atualizacao
-                    ? 'Última atualização: ' + dados.ultima_atualizacao
-                    : 'Sem data de atualização';
+                DADOS.ultima_atualizacao ? 'Última atualização: ' + DADOS.ultima_atualizacao : '';
 
-            // Datas ordenadas (mais recente primeiro nas colunas)
-            const datas = (dados.datas || []).slice().reverse();
-            const paginas = Object.values(dados.paginas);
+            const datas = (DADOS.datas || []).slice().reverse();
+            const paginas = Object.entries(DADOS.paginas).map(([chave, pg]) => ({ chave, ...pg }));
 
-            // Estatísticas
+            // Stats
             let subiram = 0, cairam = 0, iguais = 0;
             if (datas.length >= 2) {
-                const hoje = datas[0];
-                const ontem = datas[1];
                 for (const pg of paginas) {
                     const h = pg.historico || {};
-                    const vHoje = h[hoje];
-                    const vOntem = h[ontem];
-                    if (vHoje != null && vOntem != null) {
-                        if (vHoje > vOntem) subiram++;
-                        else if (vHoje < vOntem) cairam++;
+                    const vH = h[datas[0]], vO = h[datas[1]];
+                    if (vH != null && vO != null) {
+                        if (vH > vO) subiram++;
+                        else if (vH < vO) cairam++;
                         else iguais++;
                     }
                 }
@@ -309,62 +816,264 @@
             document.getElementById('stat-iguais').textContent = iguais;
             statsBar.style.display = 'flex';
 
-            // Ordenar páginas por total mais recente (decrescente)
-            const dataRecente = datas[0];
-            paginas.sort((a, b) => {
-                const va = (a.historico || {})[dataRecente] || 0;
-                const vb = (b.historico || {})[dataRecente] || 0;
-                return vb - va;
-            });
-
-            // Tabela
-            let html = '<div class="table-wrapper"><div class="table-scroll"><table>';
-
-            // Cabeçalho
-            html += '<thead><tr>';
-            html += '<th>Página</th>';
-            for (const d of datas) {
-                html += `<th>${d}</th>`;
+            // Ordenar por total mais recente
+            if (datas.length > 0) {
+                paginas.sort((a, b) => ((b.historico || {})[datas[0]] || 0) - ((a.historico || {})[datas[0]] || 0));
             }
-            html += '<th>Link</th>';
-            html += '</tr></thead>';
 
-            // Corpo
-            html += '<tbody>';
+            let html = '<div class="table-wrapper"><div class="table-scroll"><table>';
+            html += '<thead><tr><th>Página</th>';
+            for (const d of datas) html += `<th>${d}</th>`;
+            html += '</tr></thead><tbody>';
+
             for (const pg of paginas) {
-                html += '<tr>';
+                html += `<tr onclick="abrirDetalhe('${pg.chave.replace(/'/g, "\\'")}')">`;
                 html += `<td title="${pg.nome}">${pg.nome}</td>`;
 
                 for (let i = 0; i < datas.length; i++) {
-                    const d = datas[i];
-                    const valor = (pg.historico || {})[d];
-                    const valorAnterior = i + 1 < datas.length ? (pg.historico || {})[datas[i + 1]] : null;
+                    const v = (pg.historico || {})[datas[i]];
+                    const vAnt = i + 1 < datas.length ? (pg.historico || {})[datas[i + 1]] : null;
 
-                    if (valor == null) {
+                    if (v == null) {
                         html += '<td class="cell-neutral">—</td>';
-                    } else if (valorAnterior == null) {
-                        html += `<td class="cell-neutral">${formatarNumero(valor)}</td>`;
-                    } else if (valor > valorAnterior) {
-                        const diff = valor - valorAnterior;
-                        html += `<td class="cell-up" title="+${formatarNumero(diff)} vs anterior"><span class="trend-icon">▲</span>${formatarNumero(valor)}</td>`;
-                    } else if (valor < valorAnterior) {
-                        const diff = valorAnterior - valor;
-                        html += `<td class="cell-down" title="-${formatarNumero(diff)} vs anterior"><span class="trend-icon">▼</span>${formatarNumero(valor)}</td>`;
+                    } else if (vAnt == null) {
+                        html += `<td class="cell-neutral">${fmt(v)}</td>`;
+                    } else if (v > vAnt) {
+                        html += `<td class="cell-up"><span class="trend-icon">▲</span>${fmt(v)}</td>`;
+                    } else if (v < vAnt) {
+                        html += `<td class="cell-down"><span class="trend-icon">▼</span>${fmt(v)}</td>`;
                     } else {
-                        html += `<td class="cell-same"><span class="trend-icon">●</span>${formatarNumero(valor)}</td>`;
+                        html += `<td class="cell-same"><span class="trend-icon">●</span>${fmt(v)}</td>`;
+                    }
+                }
+                html += '</tr>';
+            }
+
+            html += '</tbody></table></div></div>';
+            el.innerHTML = html;
+        }
+
+        // ── Modal Detalhe ──
+        function abrirDetalhe(chave) {
+            const pg = DADOS.paginas[chave];
+            if (!pg) return;
+
+            document.getElementById('modal-titulo').textContent = pg.nome;
+
+            const datas = (DADOS.datas || []).slice();
+            const historico = pg.historico || {};
+            const maxVal = Math.max(1, ...datas.map(d => historico[d] || 0));
+
+            let html = '<div class="modal-info">';
+            html += `<div class="modal-info-row"><span class="info-label">Página:</span><span class="info-value">${pg.nome}</span></div>`;
+            if (pg.page_id) html += `<div class="modal-info-row"><span class="info-label">Page ID:</span><span class="info-value">${pg.page_id}</span></div>`;
+            html += `<div class="modal-info-row"><span class="info-label">Link:</span><span class="info-value"><a href="${pg.url}" target="_blank">Abrir na Biblioteca</a></span></div>`;
+            html += '</div>';
+
+            html += '<h3 style="font-size:14px; margin-bottom:12px; color:#8b949e;">Histórico de Anúncios Ativos</h3>';
+            html += '<div class="history-list">';
+
+            for (let i = datas.length - 1; i >= 0; i--) {
+                const d = datas[i];
+                const v = historico[d];
+                const vAnt = i > 0 ? historico[datas[i - 1]] : null;
+
+                if (v == null) continue;
+
+                let barClass = 'neutral';
+                let diffHtml = '';
+
+                if (vAnt != null) {
+                    if (v > vAnt) {
+                        barClass = 'up';
+                        diffHtml = `<span class="diff-up">+${fmt(v - vAnt)}</span>`;
+                    } else if (v < vAnt) {
+                        barClass = 'down';
+                        diffHtml = `<span class="diff-down">-${fmt(vAnt - v)}</span>`;
+                    } else {
+                        barClass = 'same';
+                        diffHtml = `<span class="diff-same">0</span>`;
                     }
                 }
 
-                const linkCurto = pg.page_id ? `page_id=${pg.page_id}` : 'Ver';
-                html += `<td class="link-cell"><a href="${pg.url}" target="_blank" rel="noopener">${linkCurto}</a></td>`;
-                html += '</tr>';
-            }
-            html += '</tbody></table></div></div>';
+                const pct = Math.max(3, (v / maxVal) * 100);
 
-            conteudo.innerHTML = html;
+                html += `<div class="history-item">
+                    <span class="history-date">${d}</span>
+                    <div class="history-bar-wrap">
+                        <div class="history-bar ${barClass}" style="width:${pct}%"></div>
+                    </div>
+                    <span class="history-value">${fmt(v)}</span>
+                    <span class="history-diff">${diffHtml}</span>
+                </div>`;
+            }
+
+            html += '</div>';
+
+            document.getElementById('modal-body').innerHTML = html;
+            document.getElementById('modal-overlay').classList.add('active');
         }
 
-        carregarDados().then(renderizar);
+        function fecharModal() {
+            document.getElementById('modal-overlay').classList.remove('active');
+        }
+
+        // ── Links ──
+        function renderizarLinks() {
+            const el = document.getElementById('lista-links');
+
+            if (!DADOS || !DADOS.paginas || Object.keys(DADOS.paginas).length === 0) {
+                // Tentar ler do links.txt local
+                el.innerHTML = '<div class="empty-state"><p>Nenhum link cadastrado. Cole um link acima e clique "Adicionar".</p></div>';
+                return;
+            }
+
+            let html = '';
+            for (const [chave, pg] of Object.entries(DADOS.paginas)) {
+                const nome = pg.nome || 'Não identificado';
+                const url = pg.url || '';
+                const pageId = pg.page_id || '';
+                const totalDatas = Object.keys(pg.historico || {}).length;
+
+                html += `<div class="link-item">
+                    <div class="link-item-info">
+                        <div class="link-item-name">${nome}</div>
+                        <div class="link-item-url" title="${url}">${url}</div>
+                    </div>
+                    ${pageId ? `<span class="link-item-id">${pageId}</span>` : ''}
+                    <span style="color:#8b949e; font-size:11px;">${totalDatas} coleta(s)</span>
+                    <button class="btn btn-danger btn-sm" onclick="removerLink('${chave.replace(/'/g, "\\'")}')">Remover</button>
+                </div>`;
+            }
+
+            el.innerHTML = html;
+        }
+
+        async function adicionarLink() {
+            const input = document.getElementById('novo-link');
+            const url = input.value.trim();
+
+            if (!url) return toast('Cole um link primeiro.', 'error');
+            if (!url.includes('facebook.com/ads/library')) return toast('Link inválido. Use um link da Biblioteca de Anúncios da Meta.', 'error');
+            if (!CONFIG.repo || !CONFIG.token) return toast('Configure o repositório e token na aba "Configurar" primeiro.', 'error');
+
+            // Extrair page_id
+            try {
+                const params = new URLSearchParams(new URL(url).search);
+                const pageId = params.get('view_all_page_id') || '';
+                const chave = pageId || url;
+
+                if (DADOS.paginas[chave]) return toast('Este link já está cadastrado.', 'error');
+
+                // Adicionar ao dados.json local
+                DADOS.paginas[chave] = {
+                    nome: pageId ? `Página ${pageId}` : 'Não identificado',
+                    url: url,
+                    page_id: pageId,
+                    historico: {}
+                };
+
+                // Salvar no GitHub
+                toast('Salvando...', 'info');
+                await salvarDadosNoGithub('Link adicionado: ' + (pageId || url));
+                await salvarLinksNoGithub();
+
+                input.value = '';
+                renderizarLinks();
+                renderizarDashboard();
+                toast('Link adicionado com sucesso!', 'success');
+
+            } catch (e) {
+                toast('Erro ao adicionar: ' + e.message, 'error');
+            }
+        }
+
+        async function removerLink(chave) {
+            if (!confirm('Remover este link e todo seu histórico?')) return;
+            if (!CONFIG.repo || !CONFIG.token) return toast('Configure o repositório e token na aba "Configurar".', 'error');
+
+            try {
+                delete DADOS.paginas[chave];
+
+                toast('Removendo...', 'info');
+                await salvarDadosNoGithub('Link removido: ' + chave);
+                await salvarLinksNoGithub();
+
+                renderizarLinks();
+                renderizarDashboard();
+                toast('Link removido!', 'success');
+
+            } catch (e) {
+                toast('Erro ao remover: ' + e.message, 'error');
+            }
+        }
+
+        async function salvarDadosNoGithub(mensagem) {
+            const file = await githubGet('dados.json');
+            const conteudo = JSON.stringify(DADOS, null, 2);
+            await githubPut('dados.json', conteudo, file.sha, mensagem);
+        }
+
+        async function salvarLinksNoGithub() {
+            // Sincronizar links.txt com os links do dados.json
+            const links = Object.values(DADOS.paginas).map(pg => pg.url).filter(Boolean).join('\n') + '\n';
+
+            let sha = null;
+            try {
+                const file = await githubGet('links.txt');
+                sha = file.sha;
+            } catch (e) {
+                // links.txt não existe ainda
+            }
+
+            await githubPut('links.txt', links, sha, 'Atualizar links.txt');
+        }
+
+        // ── Disparar Atualização ──
+        async function dispararAtualizacao() {
+            if (!CONFIG.repo || !CONFIG.token) return toast('Configure o repositório e token primeiro.', 'error');
+
+            const btn = document.getElementById('btn-atualizar-agora');
+            btn.disabled = true;
+            btn.textContent = 'Disparando...';
+
+            try {
+                const resp = await fetch(`https://api.github.com/repos/${CONFIG.repo}/actions/workflows/atualizar.yml/dispatches`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${CONFIG.token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ ref: 'main' })
+                });
+
+                if (!resp.ok && resp.status !== 204) {
+                    throw new Error(`Erro ${resp.status}`);
+                }
+
+                toast('Atualização disparada! Aguarde ~3 minutos e recarregue a página.', 'success');
+
+            } catch (e) {
+                toast('Erro ao disparar: ' + e.message, 'error');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Atualizar agora';
+            }
+        }
+
+        // ── Utilidades ──
+        function fmt(n) { return n != null ? n.toLocaleString('pt-BR') : '—'; }
+
+        function toast(msg, type = 'info') {
+            const existing = document.querySelector('.toast');
+            if (existing) existing.remove();
+
+            const el = document.createElement('div');
+            el.className = `toast ${type}`;
+            el.textContent = msg;
+            document.body.appendChild(el);
+            setTimeout(() => el.remove(), 4000);
+        }
     </script>
 </body>
 </html>
