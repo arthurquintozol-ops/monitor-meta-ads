@@ -42,4 +42,5 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add monitor_meta_ads.xlsx
           git diff --cached --quiet || git commit -m "Atualização automática $(date +'%d/%m/%Y %H:%M')"
+          git pull --rebase
           git push
