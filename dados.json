@@ -1,7 +1,7 @@
 {
   "paginas": {
     "637026799502377": {
-      "nome": "Dicas da Amanda",
+      "nome": "​",
       "url": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&is_targeted_country=false&media_type=all&search_type=page&sort_data[direction]=desc&sort_data[mode]=total_impressions&view_all_page_id=637026799502377",
       "page_id": "637026799502377",
       "historico": {
@@ -55,11 +55,12 @@
         "24/05/2026": 19,
         "25/05/2026": 24,
         "26/05/2026": 6,
-        "27/05/2026": 6
+        "27/05/2026": 6,
+        "28/05/2026": 0
       }
     },
     "387057231150204": {
-      "nome": "Helly Torres",
+      "nome": "​",
       "url": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&is_targeted_country=false&media_type=all&search_type=page&sort_data[direction]=desc&sort_data[mode]=total_impressions&view_all_page_id=387057231150204",
       "page_id": "387057231150204",
       "historico": {
@@ -113,7 +114,8 @@
         "24/05/2026": 0,
         "25/05/2026": 0,
         "26/05/2026": 3,
-        "27/05/2026": 3
+        "27/05/2026": 3,
+        "28/05/2026": 0
       }
     }
   },
@@ -168,7 +170,8 @@
     "24/05/2026",
     "25/05/2026",
     "26/05/2026",
-    "27/05/2026"
+    "27/05/2026",
+    "28/05/2026"
   ],
-  "ultima_atualizacao": "27/05/2026 15:51"
+  "ultima_atualizacao": "28/05/2026 16:03"
 }
